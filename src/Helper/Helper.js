@@ -1,4 +1,10 @@
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField,
+} from "@mui/material";
 import styled from "styled-components";
 
 export const Heading = styled.h1`
@@ -10,6 +16,8 @@ export const Heading = styled.h1`
   padding: ${(props) => props.p};
   text-transform: ${(props) => props.tt};
   text-align: ${(props) => props.ta};
+  display: ${(props) => props.d};
+  border-bottom: ${(props) => props.bb};
 `;
 
 export const Paragraph = styled.p`
@@ -36,16 +44,21 @@ export const ImageController = styled.img`
 
 export const ButtonPrimary = styled(Button)`
   && {
-    background: var(--mainColor);
-    color: var(--lightColor);
-    border-radius: 1rem;
+    background: ${(props) => (props.bg ? props.bg : "var(--mainColor)")};
+    color: ${(props) => (props.c ? props.c : "var(--lightColor)")};
+    border-radius: ${(props) => (props.br ? props.br : "1rem")};
     /* display: block; */
     padding: 0.6rem 1rem;
     /* min-width: 200px; */
+    /* background: ; */
+    width: ${(props) => props.w};
     text-transform: capitalize;
     letter-spacing: 2px;
     margin: ${(props) => (props.m ? props.m : "1rem 0")};
     transition: all 0.3s;
+    box-shadow: ${(props) => props.bs};
+    font-size: 0.7rem;
+
     &:hover {
       background: var(--lightColor);
       color: var(--mainColor);
@@ -75,4 +88,26 @@ export const InputStyled = styled(TextField)`
       background: var(--lightColor);
     }
   }
+`;
+
+export const TableRowStyle = styled(TableRow)`
+  && {
+    border: none;
+  }
+`;
+export const TableCellStyle = styled(TableCell)`
+  && {
+    /* background: #000; */
+    border: none;
+    font-size: 1rem;
+    color: var(--gray);
+    .image {
+      display: flex;
+      align-items: center;
+    }
+  }
+`;
+export const TableHeadStyled = styled(TableHead)`
+  box-shadow: none;
+  border-radius: 0;
 `;

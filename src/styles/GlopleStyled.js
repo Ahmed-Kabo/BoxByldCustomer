@@ -20,6 +20,7 @@ export const GlobalStyled = createGlobalStyle`
     ::-webkit-scrollbar-thumb {
         color: var(--mainColor); 
         border-radius: 10px;
+        
     }
     *{
         padding:0;
@@ -54,6 +55,9 @@ export const GlobalStyled = createGlobalStyle`
             }
         }
 
+    }
+    ul{
+        list-style: none;
     }
 
 
