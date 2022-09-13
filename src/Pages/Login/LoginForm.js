@@ -4,6 +4,8 @@ import { Box } from "@mui/system";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { ButtonPrimary, InputStyled } from "../../Helper/Helper";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../Redux/Slices/auth/AuthSlice";
 
 //start valdation
 const validationSchema = yup.object({
@@ -20,6 +22,8 @@ const validationSchema = yup.object({
 
 //start lofin form
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const { isError, isSuccess, isLodaing } = useSelector((state) => state.auth);
   //start forimk valus
 
   const formik = useFormik({
@@ -28,7 +32,9 @@ const LoginForm = () => {
       password: "",
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      dispatch(login(values));
+    },
   });
 
   return (
@@ -85,7 +91,7 @@ const LoginForm = () => {
           </Grid>
         </Grid>
         <ButtonPrimary type="submit" fullWidth variant="contained" m="4rem 0">
-          Login
+          {isLodaing ? "lodaing..." : "Login"}
         </ButtonPrimary>
       </form>
     </>

@@ -32,6 +32,7 @@ import {
   House,
   ImportContacts,
   Inbox,
+  Logout,
   Mail,
   Menu,
 } from "@mui/icons-material";
@@ -39,6 +40,8 @@ import { NavLink, Outlet } from "react-router-dom";
 
 import LOGO from "../../Assets/logo.svg";
 import { ImageController } from "../../Helper/Helper";
+import { logout } from "../../Redux/Slices/auth/AuthSlice";
+import { useDispatch } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -143,6 +146,7 @@ const Routs = [
 ];
 
 const Home = () => {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -170,8 +174,21 @@ const Home = () => {
           >
             <Menu />
           </IconButton>
-          <Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+              padding: "0 2rem",
+            }}
+          >
             <h2>Customer Dashbord</h2>
+            <IconButton
+              sx={{ color: "#fff" }}
+              onClick={() => dispatch(logout())}
+            >
+              <Logout />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>

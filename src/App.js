@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate, Route, Routes } from "react-router-dom";
 import ContactOfficer from "./Pages/ContactOfficer/ContarctOfficer";
 import Contract from "./Pages/Contract/Contract";
 import Home from "./Pages/Home/Home";
@@ -11,20 +12,29 @@ import UtilityBill from "./Pages/UtilityBill/UtilityBill";
 import { GlobalStyled } from "./styles/GlopleStyled";
 
 function App() {
+  const { mainUser } = useSelector((state) => state.auth);
   return (
     <>
       <GlobalStyled />
       <Routes>
-        {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/" element={<Home />}>
-          <Route path="site-survey" element={<SiteSurvey />} />
-          <Route path="utility-bill" element={<UtilityBill />} />
-          <Route path="solution" element={<Solution />} />
-          <Route path="contract" element={<Contract />} />
-          <Route path="project-status" element={<ProjectStatus />} />
-          <Route path="contact-officer" element={<ContactOfficer />} />
-          <Route path="tracking" element={<Tracking />} />
-        </Route>
+        {!mainUser ? (
+          <>
+            <Route path="/" element={<Login />} />
+            <Route path="/8" element={<Navigate to="/" />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<Home />}>
+              <Route path="site-survey" element={<SiteSurvey />} />
+              <Route path="utility-bill" element={<UtilityBill />} />
+              <Route path="solution" element={<Solution />} />
+              <Route path="contract" element={<Contract />} />
+              <Route path="project-status" element={<ProjectStatus />} />
+              <Route path="contact-officer" element={<ContactOfficer />} />
+              <Route path="tracking" element={<Tracking />} />
+            </Route>
+          </>
+        )}
       </Routes>
     </>
   );
