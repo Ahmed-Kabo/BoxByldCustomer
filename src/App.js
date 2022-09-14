@@ -1,9 +1,14 @@
 import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import CheckMail from "./components/CheckMail/CheckMail";
 import ContactOfficer from "./Pages/ContactOfficer/ContarctOfficer";
 import Contract from "./Pages/Contract/Contract";
 import Home from "./Pages/Home/Home";
+import ForgotPassword from "./Pages/Login/ForgetPassword";
 import Login from "./Pages/Login/Login";
+import ResetPassword from "./Pages/Login/ResetPassword";
 import ProjectStatus from "./Pages/ProjectStatus/ProjectStatus";
 import SiteSurvey from "./Pages/SiteSurvey/SiteSurvey";
 import Solution from "./Pages/Solutions/Solution";
@@ -16,11 +21,15 @@ function App() {
   return (
     <>
       <GlobalStyled />
+      <ToastContainer />
       <Routes>
         {!mainUser ? (
           <>
             <Route path="/" element={<Login />} />
-            <Route path="/8" element={<Navigate to="/" />} />
+            <Route path="/*" element={<Navigate to="/" />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/check-email" element={<CheckMail />} />
           </>
         ) : (
           <>

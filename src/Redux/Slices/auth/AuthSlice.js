@@ -6,6 +6,8 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
   mainUser: user ? user : null,
+  forgot: null,
+  reset: null,
   isError: false,
   isSuccess: false,
   isLodaing: false,
@@ -16,7 +18,8 @@ export const login = createAsyncThunk("auth/login", async (data, thunkAPI) => {
   try {
     return await authService.login(data);
   } catch (error) {
-    const message = error.massage;
+    const message = error.response.data.message;
+
     return thunkAPI.rejectWithValue(message);
   }
 });
@@ -25,6 +28,36 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logout();
   //await localStorage.removeItem("user");
 });
+
+//forget paassword
+
+export const forgotPassword = createAsyncThunk(
+  "auth/forgot",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.ForgetPassword(data);
+    } catch (error) {
+      const message = error.response.data.message;
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+//reset paassword
+
+export const resetPassword = createAsyncThunk(
+  "auth/reset",
+  async (data, thunkAPI) => {
+    try {
+      return await authService.resetPassword(data);
+    } catch (error) {
+      const message = error.response.data.message;
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -57,6 +90,36 @@ export const authSlice = createSlice({
     //logout actions
     [logout.fulfilled]: (state) => {
       state.mainUser = null;
+    },
+
+    //forget password Actions
+    [forgotPassword.pending]: (state) => {
+      state.isLodaing = true;
+    },
+    [forgotPassword.fulfilled]: (state, action) => {
+      state.isLodaing = false;
+      state.forgot = action.payload;
+      state.isSuccess = true;
+    },
+    [forgotPassword.rejected]: (state, action) => {
+      state.isLodaing = false;
+      state.isError = true;
+      state.message = action.payload;
+    },
+
+    //forget password Actions
+    [resetPassword.pending]: (state) => {
+      state.isLodaing = true;
+    },
+    [resetPassword.fulfilled]: (state, action) => {
+      state.isLodaing = false;
+      state.reset = action.payload;
+      state.isSuccess = true;
+    },
+    [resetPassword.rejected]: (state, action) => {
+      state.isLodaing = false;
+      state.isError = true;
+      state.message = action.payload;
     },
   },
 });

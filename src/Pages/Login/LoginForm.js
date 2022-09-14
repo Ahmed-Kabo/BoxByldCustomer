@@ -1,11 +1,12 @@
 import { Grid, FormControlLabel, Checkbox } from "@mui/material";
-import { MailOutline, Lock } from "@mui/icons-material";
+import { MailOutline, Lock, VpnKey } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { ButtonPrimary, InputStyled } from "../../Helper/Helper";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/Slices/auth/AuthSlice";
+import { Link } from "react-router-dom";
 
 //start valdation
 const validationSchema = yup.object({
@@ -87,10 +88,18 @@ const LoginForm = () => {
             alignItems="center"
             justifyContent="flex-end"
           >
-            <a href=""> forget password</a>
+            <Link to="forgot-password" className="forgot_password">
+              Forgot Password
+            </Link>
           </Grid>
         </Grid>
-        <ButtonPrimary type="submit" fullWidth variant="contained" m="4rem 0">
+        <ButtonPrimary
+          fw="bold"
+          type="submit"
+          fullWidth
+          variant="contained"
+          m="4rem 0"
+        >
           {isLodaing ? "lodaing..." : "Login"}
         </ButtonPrimary>
       </form>

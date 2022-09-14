@@ -51,13 +51,15 @@ export const ButtonPrimary = styled(Button)`
     padding: 0.6rem 1rem;
     /* min-width: 200px; */
     /* background: ; */
+
     width: ${(props) => props.w};
     text-transform: capitalize;
     letter-spacing: 2px;
     margin: ${(props) => (props.m ? props.m : "1rem 0")};
     transition: all 0.3s;
     box-shadow: ${(props) => props.bs};
-    font-size: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: ${(props) => props.fw};
 
     &:hover {
       background: var(--lightColor);
